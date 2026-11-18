@@ -1,0 +1,26 @@
+services:
+  rag-resume-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rag-resume-filter-reader:latest
+    container_name: rag_resume_app
+    ports:
+      - "8501:8501"
+    environment:
+      - LLM_PROVIDER=${LLM_PROVIDER:-gemini}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - SIMILARITY_TOP_K=5
+      - HYBRID_ALPHA=0.6
+      - RERANK_ENABLED=true
+    volumes:
+      - ./data:/app/data
+      - ./configs:/app/configs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s

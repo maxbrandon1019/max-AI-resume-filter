@@ -1,0 +1,38 @@
+Maya Lin
+Seattle, WA | maya.lin.ai@example.com | (555) 987-6543 | linkedin.com/in/mayalin-ai | github.com/mayalin-ml
+
+PROFESSIONAL SUMMARY
+Lead AI/ML and RAG Systems Engineer with 6+ years of specialized experience developing Generative AI applications, Large Language Model (LLM) fine-tuning pipelines, and semantic retrieval systems. Expert in building low-latency enterprise RAG systems with LangChain, LlamaIndex, PyTorch, and Vector Databases.
+
+TECHNICAL SKILLS
+- AI & Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace Transformers, NLP, Deep Learning, MLOps
+- Generative AI & RAG: LangChain, LlamaIndex, Vector Databases, ChromaDB, Qdrant, Pinecone, Semantic Embeddings, Reranking, Prompt Engineering
+- Programming & Frameworks: Python, FastAPI, SQL, TypeScript, Docker, Linux
+- Cloud & Big Data: AWS (SageMaker, S3, Bedrock), GCP (Vertex AI), MLflow, Ray, Pandas, NumPy
+
+WORK EXPERIENCE
+Lead AI & Retrieval Engineer | NeuralCore Technologies, Seattle, WA
+2022 – Present
+- Built and scaled multi-tenant enterprise RAG search platform using Python, FastAPI, ChromaDB, and LangChain, indexing over 2M technical documents.
+- Designed hybrid search pipeline combining dense vector embeddings with BM25 sparse keyword ranking, boosting retrieval recall@5 from 71% to 93%.
+- Fine-tuned open-source LLMs (Llama-3, Mistral) with LoRA/QLoRA on domain-specific datasets, cutting inference costs by 55% compared to proprietary commercial APIs.
+- Supervised end-to-end MLOps pipeline using MLflow, Docker, and AWS SageMaker for automated model evaluation, drift detection, and deployment.
+
+Senior Machine Learning Engineer | DataMind AI, Bellevue, WA
+2019 – 2022
+- Developed NLP classification and Named Entity Recognition (NER) models using PyTorch and HuggingFace for financial document parsing.
+- Deployed real-time model inference APIs using FastAPI and Triton Inference Server, achieving <30ms latency at 2,000 QPS.
+- Built automated data preprocessing pipelines using Pandas, NumPy, and Apache Spark.
+
+Machine Learning Engineer | Apex Analytics, Redmond, WA
+2018 – 2019
+- Implemented predictive analytics models using Scikit-Learn and XGBoost for customer churn prediction.
+- Conducted A/B testing and model validation across 500K active users.
+
+EDUCATION
+Master of Science in Artificial Intelligence | University of Washington (2016 – 2018)
+Bachelor of Science in Data Science & Mathematics | University of Washington (2012 – 2016)
+
+PROJECTS
+- OpenRAG-Eval: Open-source framework for benchmark evaluation of semantic chunking strategies (1.2k GitHub Stars).
+- MultiModal-Search: Vector-based visual and text retrieval engine using CLIP and Qdrant.

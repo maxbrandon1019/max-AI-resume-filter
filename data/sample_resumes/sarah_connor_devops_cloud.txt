@@ -1,0 +1,38 @@
+Sarah Connor
+Austin, TX | sarah.connor.cloud@example.com | (555) 444-1234 | linkedin.com/in/sarahconnor-cloud | github.com/sconnor-infra
+
+PROFESSIONAL SUMMARY
+DevOps & Cloud Infrastructure Architect with 9+ years of experience leading multi-cloud migrations, Infrastructure as Code (IaC) automation, and zero-trust Kubernetes security. Championed automated CI/CD releases across 40+ engineering teams with 99.999% availability.
+
+TECHNICAL SKILLS
+- Cloud Platforms: AWS, Azure, Google Cloud (GCP)
+- Infrastructure as Code: Terraform, Ansible, CloudFormation, Pulumi
+- Containers & Orchestration: Docker, Kubernetes, Helm, Istio Service Mesh, ArgoCD
+- CI/CD & Automation: GitHub Actions, GitLab CI, Jenkins, Linux (Ubuntu/RHEL), Bash, Python
+- Monitoring & Security: Prometheus, Grafana, Datadog, ELK Stack, HashiCorp Vault, SOC2 Compliance
+
+WORK EXPERIENCE
+Principal Cloud Infrastructure Architect | SkyNet Solutions, Austin, TX
+2020 – Present
+- Directed enterprise-wide cloud infrastructure on AWS managing 1,200+ microservices and Kubernetes (EKS) clusters.
+- Standardized Terraform IaC modules used by 150+ engineers, reducing provisioning time from 2 weeks to 15 minutes.
+- Implemented GitOps deployment pipelines with ArgoCD and GitHub Actions, enabling 200+ zero-downtime production deployments per week.
+- Enforced SOC2 security policies and automated secret management with HashiCorp Vault.
+
+Senior DevOps Engineer | CloudForge Technologies, Dallas, TX
+2017 – 2020
+- Built highly available CI/CD infrastructure using Jenkins, Docker, and Kubernetes on AWS.
+- Configured automated observability stack using Prometheus, Grafana, and Datadog, reducing MTTR (Mean Time to Resolution) by 50%.
+- Created automated disaster recovery and backup systems ensuring RPO < 5 minutes and RTO < 30 minutes.
+
+Systems Administrator & DevOps Specialist | Texas Data Systems, Austin, TX
+2015 – 2017
+- Managed 300+ Linux physical and virtual servers, configured NGINX reverse proxies, and automated patching scripts via Python and Bash.
+
+EDUCATION
+Bachelor of Science in Computer Information Systems | University of Texas at Austin (2011 – 2015)
+
+CERTIFICATIONS
+- AWS Certified DevOps Engineer – Professional
+- HashiCorp Certified: Terraform Associate
+- Certified Kubernetes Security Specialist (CKS)

@@ -1,0 +1,31 @@
+# Git and IDE
+.git
+.gitignore
+.vscode
+.idea
+.anchor
+
+# Python cache & virtual environments
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment files
+.env
+.env.local
+*.env
+
+# Local outputs & user uploads
+exports/
+uploads/
+temp/
+storage/
+chroma_db/

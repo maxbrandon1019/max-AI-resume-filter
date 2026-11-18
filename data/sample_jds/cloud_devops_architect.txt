@@ -1,0 +1,23 @@
+Principal Cloud & DevOps Infrastructure Architect
+
+About the Role:
+We are looking for a Principal Cloud DevOps Architect to lead our cloud infrastructure strategy, Kubernetes platform orchestration, and automated GitOps CI/CD delivery pipelines.
+
+Key Responsibilities:
+- Design and maintain highly available, multi-region AWS cloud infrastructure supporting mission-critical microservices.
+- Lead Kubernetes (EKS) cluster management, service mesh configuration, and auto-scaling.
+- Build and maintain Infrastructure as Code (IaC) libraries using Terraform and Ansible.
+- Drive zero-downtime automated deployment pipelines via GitHub Actions and ArgoCD.
+- Ensure strict cloud security, IAM least privilege access, and compliance (SOC2, ISO27001).
+
+Requirements:
+- 7+ years of experience in DevOps, Cloud Engineering, or Site Reliability Engineering (SRE).
+- Deep expertise with AWS core services (ECS, EKS, VPC, IAM, RDS, Route53).
+- Advanced proficiency in Kubernetes container orchestration and Docker.
+- Strong knowledge of Terraform for Infrastructure as Code.
+- Proficient scripting skills in Python and Bash / Shell scripting.
+- Bachelor's degree in Computer Science, Information Systems, or equivalent experience.
+
+Nice to Have:
+- AWS Certified Solutions Architect or DevOps Engineer Professional.
+- Certified Kubernetes Administrator (CKA) or CKS.

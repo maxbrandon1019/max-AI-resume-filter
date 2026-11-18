@@ -1,0 +1,30 @@
+Ethan Hunt
+New York, NY | ethan.hunt.dev@example.com | (555) 321-7654 | linkedin.com/in/ethanhunt-ui | github.com/ethanhunt-web
+
+PROFESSIONAL SUMMARY
+Passionate Frontend Software Engineer with 2 years of professional experience building responsive, user-friendly single page web applications using React, TypeScript, Next.js, and modern CSS frameworks.
+
+TECHNICAL SKILLS
+- Frontend Core: JavaScript (ES6+), TypeScript, HTML5, CSS3, Responsive Design
+- Frameworks & Libraries: React, React.js, Next.js, Redux Toolkit, Tailwind CSS, Material UI
+- Tools & Testing: Webpack, Vite, Jest, React Testing Library, Git, GitHub Actions, Figma
+
+WORK EXPERIENCE
+Junior Frontend Developer | Mission Digital Studio, New York, NY
+2022 – Present
+- Developed modular, reusable UI components using React, TypeScript, and Tailwind CSS for 4 client web applications.
+- Collaborated with UI/UX designers in Figma to translate wireframes into pixel-perfect accessible interfaces (WCAG 2.1 AA compliant).
+- Optimized web application bundle size using Vite and code-splitting, improving Google Lighthouse performance scores from 62 to 94.
+- Integrated backend REST APIs using React Query and Axios.
+
+Web Development Intern | Alpha Web Works, Brooklyn, NY
+2021 – 2022
+- Maintained marketing websites using HTML, CSS, JavaScript, and WordPress.
+- Created unit tests with Jest and React Testing Library achieving 75% test coverage for core components.
+
+EDUCATION
+Bachelor of Science in Computer Science | New York University (2018 – 2022)
+
+PROJECTS
+- DevPortfolio: Open-source developer portfolio generator built with Next.js and Tailwind.
+- CryptoTracker: Real-time cryptocurrency tracking dashboard using React and CoinGecko API.

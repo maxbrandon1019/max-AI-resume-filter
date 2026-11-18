@@ -1,0 +1,19 @@
+Senior Backend Distributed Systems Engineer
+
+About the Role:
+We are seeking a Senior Backend Engineer to design, build, and scale resilient distributed backend systems and high-concurrency event-driven architectures.
+
+Key Responsibilities:
+- Design high-performance distributed systems using Python (FastAPI/Django) and Go.
+- Architect event-driven asynchronous pipelines with Apache Kafka and RabbitMQ.
+- Model and optimize high-throughput relational and NoSQL databases (PostgreSQL, Redis, Cassandra).
+- Partner with infrastructure teams to deploy and operate services on Kubernetes.
+- Lead code reviews, promote engineering excellence, and mentor junior engineers.
+
+Requirements:
+- 6+ years of backend software engineering experience.
+- Expert-level proficiency in Python and/or Go (Golang).
+- Strong background with SQL/PostgreSQL performance tuning, indexing, and Redis caching.
+- Production experience with message brokers like Apache Kafka.
+- Hands-on experience with Docker, microservices architectures, and Linux.
+- Bachelor's or Master's degree in Computer Science or related field.

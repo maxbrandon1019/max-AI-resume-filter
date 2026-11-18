@@ -1,0 +1,64 @@
+# ==============================================================================
+# Environment & Secrets (CRITICAL: NEVER COMMIT LIVE KEYS)
+# ==============================================================================
+.env
+.env.local
+.env.*.local
+*.env
+.streamlit/secrets.toml
+
+# ==============================================================================
+# Virtual Environments & Package Managers
+# ==============================================================================
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# ==============================================================================
+# Python Bytecode & Testing Caches
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+
+# ==============================================================================
+# Local Vector DB & Runtime Storage
+# ==============================================================================
+chroma_db/
+*.db
+*.sqlite3
+storage/
+
+# ==============================================================================
+# Real Candidate Resumes & Exports (Privacy / PDPA / GDPR Protection)
+# Preserves bundled sample data while ignoring user uploads & exported reports
+# ==============================================================================
+uploads/
+temp/
+exports/*.csv
+exports/*.html
+exports/*.md
+*.pdf
+*.docx
+!data/sample_resumes/*.txt
+!data/sample_jds/*.txt
+
+# ==============================================================================
+# Operating System & IDE Artifacts
+# ==============================================================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+.anchor

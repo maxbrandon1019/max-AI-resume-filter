@@ -1,0 +1,23 @@
+Senior AI & Python Retrieval Engineer
+
+About the Role:
+We are seeking an experienced Senior AI Engineer to design and scale our next-generation Generative AI and Retrieval-Augmented Generation (RAG) platforms. You will be responsible for creating high-performance semantic search pipelines, LLM fine-tuning workflows, and low-latency API architectures.
+
+Key Responsibilities:
+- Architect, build, and deploy production RAG pipelines utilizing dense vector databases and hybrid keyword retrieval.
+- Develop low-latency backend APIs and microservices using Python and FastAPI.
+- Evaluate, benchmark, and fine-tune large language models and embedding models for domain-specific tasks.
+- Implement robust MLOps practices including automated model evaluation, tracking, and drift detection.
+- Collaborate with frontend engineers, product managers, and data engineers to ship AI features.
+
+Requirements & Qualifications:
+- 5+ years of software engineering experience with deep expertise in Python.
+- 3+ years hands-on experience building AI/ML applications, NLP pipelines, or Generative AI systems.
+- Strong practical experience with Vector Databases (ChromaDB, Qdrant, Pinecone, or FAISS) and RAG frameworks (LangChain, LlamaIndex).
+- Proficiency with deep learning frameworks such as PyTorch or HuggingFace Transformers.
+- Solid understanding of Docker, REST APIs, SQL, and Cloud platforms (AWS or GCP).
+- Master's or Bachelor's degree in Computer Science, AI, Data Science, or equivalent practical experience.
+
+Nice-to-Have:
+- Experience fine-tuning LLMs with LoRA / QLoRA techniques.
+- Contributions to open-source AI or RAG tooling.

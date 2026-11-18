@@ -1,0 +1,37 @@
+app:
+  title: "RAG Resume Filter & Reader"
+  version: "1.0.0"
+  description: "AI-Powered Section-Aware Resume Filtering, Explainable Fit Scoring & Conversational Talent Intelligence"
+
+llm:
+  default_provider: "gemini" # options: gemini, openai, mock
+  gemini:
+    model_name: "gemini-1.5-flash"
+    temperature: 0.1
+  openai:
+    model_name: "gpt-4o-mini"
+    embedding_model: "text-embedding-3-small"
+    temperature: 0.1
+
+retrieval:
+  top_k: 5
+  hybrid_alpha: 0.65  # Weight between dense semantic search (0.65) and BM25 sparse search (0.35)
+  section_weights:
+    skills: 1.3
+    work_experience: 1.2
+    projects: 1.1
+    education: 0.9
+    summary: 1.0
+
+parser:
+  supported_extensions: [".pdf", ".docx", ".txt"]
+  min_chunk_length: 50
+  enable_pii_masking: false
+
+scoring:
+  weights:
+    technical_skills: 0.40
+    experience_relevance: 0.35
+    education_fit: 0.15
+    soft_skills_and_presentation: 0.10
+  passing_score: 70.0

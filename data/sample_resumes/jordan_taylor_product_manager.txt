@@ -1,0 +1,31 @@
+Jordan Taylor
+Boston, MA | jordan.taylor.pm@example.com | (555) 777-8899 | linkedin.com/in/jordantaylor-pm
+
+PROFESSIONAL SUMMARY
+Senior Technical Product Manager with 5+ years of experience leading cross-functional teams from discovery to launch for enterprise SaaS applications. Adept at translating user needs into technical roadmaps and driving metrics-driven growth.
+
+TECHNICAL & MANAGEMENT SKILLS
+- Product Strategy: Product Roadmap, OKRs, Product Discovery, Competitive Analysis, User Story Mapping
+- Analytics & Data: SQL, Mixpanel, Google Analytics, Amplitude, A/B Testing, Excel / Tableau
+- Agile & Collaboration: Scrum, Kanban, Jira, Confluence, Figma, Miro
+
+WORK EXPERIENCE
+Senior Product Manager | Beacon SaaS Platforms, Boston, MA
+2021 – Present
+- Led product roadmap and feature execution for an enterprise customer analytics platform generating $12M ARR.
+- Partnered with engineering and design teams to launch self-service onboarding, reducing time-to-value by 40%.
+- Analyzed product telemetry and user funnels with SQL and Mixpanel to identify drop-off friction points.
+- Facilitated sprint planning, daily standups, backlog grooming, and customer discovery interviews.
+
+Product Manager | Catalyst Ventures, Cambridge, MA
+2019 – 2021
+- Managed the development of a mobile CRM app used by 45,000 active sales professionals.
+- Collaborated with engineering leads to prioritize tech debt and microservice refactoring alongside new product features.
+
+EDUCATION
+Master of Business Administration (MBA) | Harvard Business School (2017 – 2019)
+Bachelor of Arts in Economics | Boston University (2013 – 2017)
+
+CERTIFICATIONS
+- Certified Scrum Product Owner (CSPO)
+- Pragmatic Institute Certified (PMC-III)

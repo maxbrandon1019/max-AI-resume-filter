@@ -1,0 +1,39 @@
+Alex Rivera
+San Francisco, CA | alex.rivera@example.com | (555) 234-5678 | linkedin.com/in/alexrivera-dev | github.com/alexrivera
+
+PROFESSIONAL SUMMARY
+Senior Backend and Distributed Systems Engineer with 8+ years of experience designing and scaling high-throughput cloud microservices, distributed data pipelines, and REST/gRPC APIs. Proven track record reducing latency by 45% and managing production Kubernetes clusters processing over 50M requests daily.
+
+TECHNICAL SKILLS
+- Programming Languages: Python, Go (Golang), SQL, TypeScript, Java
+- Frameworks & Libraries: FastAPI, Django, Flask, gRPC, Celery, SQLAlchemy
+- Cloud & Infrastructure: AWS (ECS, EKS, Lambda, S3, RDS, DynamoDB), Docker, Kubernetes, Terraform, Linux
+- Databases & Messaging: PostgreSQL, Redis, Apache Kafka, Elasticsearch, Cassandra
+- Methodologies & Practices: Microservices Architecture, CI/CD (GitHub Actions), Agile/Scrum, Distributed Tracing
+
+WORK EXPERIENCE
+Senior Backend Infrastructure Engineer | CloudScale Tech, San Francisco, CA
+2021 – Present
+- Architected and deployed scalable event-driven microservices using Python FastAPI, Go, and Apache Kafka, handling 50M+ daily events with 99.99% uptime.
+- Transitioned monolithic application to Dockerized microservices deployed on AWS EKS using Terraform, cutting infrastructure costs by 32%.
+- Designed and optimized PostgreSQL database schema and Redis caching layer, reducing p99 API query latency from 320ms to 45ms.
+- Mentored a team of 6 junior and mid-level backend engineers and conducted code reviews and architecture design sessions.
+
+Backend Software Engineer | DataStream Inc., San Jose, CA
+2018 – 2021
+- Developed RESTful API endpoints and real-time data ingestion pipelines using Python, Django, and PostgreSQL.
+- Implemented automated CI/CD pipelines via GitHub Actions and Docker, reducing deployment cycle times by 60%.
+- Integrated Elasticsearch cluster for sub-second log analytics and full-text search across 10TB+ telemetry data.
+
+Software Engineer | NextGen Solutions, San Jose, CA
+2016 – 2018
+- Built backend services and database migrations using Python and MySQL.
+- Created unit and integration testing suites achieving 88% test coverage with PyTest.
+
+EDUCATION
+Master of Science in Computer Science | Stanford University (2014 – 2016)
+Bachelor of Science in Computer Engineering | UC Berkeley (2010 – 2014)
+
+CERTIFICATIONS
+- AWS Certified Solutions Architect – Professional
+- Certified Kubernetes Administrator (CKA)
