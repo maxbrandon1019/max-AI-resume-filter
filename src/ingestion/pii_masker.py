@@ -21,6 +21,12 @@ class PIIMasker:
         anonymized.links = ["[REDACTED_LINK]"] * len(anonymized.links)
         anonymized.is_anonymized = True
 
+        # Redact locations in structured work experiences
+        if anonymized.work_experiences:
+            for exp in anonymized.work_experiences:
+                if exp.location:
+                    exp.location = "[REDACTED_LOCATION]"
+
         # Mask inside raw text and sections
         if orig_name and orig_name != "Unknown Candidate":
             name_pattern = re.compile(re.escape(orig_name), re.IGNORECASE)

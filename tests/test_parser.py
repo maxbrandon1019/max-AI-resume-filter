@@ -40,13 +40,26 @@ def test_parser_plain_text():
 def test_sectionizer_entities():
     profile = ResumeSectionizer.sectionize(SAMPLE_RESUME_TEXT, filename="jane_doe.txt")
     
+    # Separated Contact, Identity & Location
     assert profile.name == "Jane Doe"
     assert profile.email == "jane.doe@example.com"
     assert profile.phone == "(555) 123-4567"
+    assert profile.location == "Seattle, WA"
     assert profile.total_years_experience >= 4.0
     assert "Master" in profile.highest_education
+
+    # Separated Skills
     assert any("python" in s.lower() for s in profile.top_skills)
     assert any("pytorch" in s.lower() for s in profile.top_skills)
+
+    # Separated Work Experiences
+    assert len(profile.work_experiences) >= 2
+    first_exp = profile.work_experiences[0]
+    assert "Senior ML Engineer" in first_exp.title
+    assert "AI Tech Labs" in (first_exp.company or "")
+    assert "2020" in first_exp.date_range
+    assert len(first_exp.highlights) >= 1
+    assert any("RAG" in h or "ChromaDB" in h for h in first_exp.highlights)
 
 
 def test_sectionizer_sections():

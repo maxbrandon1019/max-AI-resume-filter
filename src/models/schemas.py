@@ -24,6 +24,18 @@ class ResumeSection(BaseModel):
     token_count: Optional[int] = None
 
 
+class WorkExperience(BaseModel):
+    """Structured individual work experience / employment entry."""
+    title: str = "Role / Position"
+    company: Optional[str] = None
+    location: Optional[str] = None
+    date_range: str = ""
+    duration_years: Optional[float] = None
+    description: str = ""
+    highlights: List[str] = Field(default_factory=list)
+    raw_content: str = ""
+
+
 class CandidateProfile(BaseModel):
     """Complete structured profile extracted from a candidate's resume."""
     candidate_id: str
@@ -36,6 +48,7 @@ class CandidateProfile(BaseModel):
     total_years_experience: Optional[float] = 0.0
     highest_education: Optional[str] = None
     top_skills: List[str] = Field(default_factory=list)
+    work_experiences: List[WorkExperience] = Field(default_factory=list)
     summary: Optional[str] = None
     raw_text: str = ""
     sections: List[ResumeSection] = Field(default_factory=list)

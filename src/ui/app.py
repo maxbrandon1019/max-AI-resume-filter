@@ -346,6 +346,27 @@ with tabs[0]:
     if not st.session_state.candidates:
         st.info("No resumes uploaded yet. Upload files above or click **'📥 Load Samples'** in the sidebar to get started instantly.")
     else:
+        # Quick Overview Table across all candidates
+        st.markdown("##### 📋 Talent Pool Quick Summary Table")
+        pool_rows = []
+        for cand in st.session_state.candidates.values():
+            disp = PIIMasker.mask_profile(cand) if st.session_state.pii_masking else cand
+            latest_role = cand.work_experiences[0].title if cand.work_experiences else "—"
+            if cand.work_experiences and cand.work_experiences[0].company:
+                latest_role += f" @ {cand.work_experiences[0].company}"
+            pool_rows.append({
+                "Name": disp.name,
+                "Email": disp.email or "—",
+                "Phone": disp.phone or "—",
+                "Location": disp.location or "—",
+                "Experience": f"{disp.total_years_experience or 0:.1f} yrs",
+                "Education": disp.highest_education or "—",
+                "Core Skills": ", ".join(disp.top_skills[:5]) + ("..." if len(disp.top_skills) > 5 else ""),
+                "Latest Position": latest_role
+            })
+        st.dataframe(pd.DataFrame(pool_rows), use_container_width=True, hide_index=True)
+
+        st.markdown("##### 🗂️ Detailed Candidate Profiles")
         for cid, cand in list(st.session_state.candidates.items()):
             display_profile = PIIMasker.mask_profile(cand) if st.session_state.pii_masking else cand
             layout_icon = "📰 Multi-Column / Sidebar" if getattr(cand, "layout_type", "single-column") == "multi-column" else "📑 Standard 1-Column"
@@ -363,35 +384,65 @@ with tabs[0]:
                 if getattr(cand, "is_scanned", False):
                     st.warning("⚠️ **Scanned / Visual Document Detected:** Native text stream was minimal (<35 words). Content was recovered using Vision OCR / fallbacks.")
 
-                col_left, col_right = st.columns([1, 2])
-                with col_left:
-                    st.markdown("**Contact & Extraction Info**")
-                    if not st.session_state.pii_masking:
-                        if cand.email:
-                            st.write(f"📧 **Email:** {cand.email}")
-                        if cand.phone:
-                            st.write(f"📱 **Phone:** {cand.phone}")
-                        if cand.location:
-                            st.write(f"📍 **Location:** {cand.location}")
-                    st.write(f"🎓 **Education:** {cand.highest_education}")
-                    st.write(f"⏳ **Experience:** {cand.total_years_experience} years")
-                    st.write(f"📐 **Layout:** `{layout_icon}`")
-                    st.write(f"⚙️ **Engine:** `{engine_label}`")
-                    st.write(f"📝 **Words Extracted:** `{word_count}` words")
+                # 1. SEPARATED CONTACT & LOCATION HEADER
+                st.markdown("#### 👤 Candidate Contact & Details")
+                c_mail, c_phone, c_loc, c_exp, c_edu = st.columns([1.3, 1.1, 1.2, 0.9, 1.3])
+                with c_mail:
+                    st.markdown(f"📧 **Email:**<br>`{display_profile.email or 'Not specified'}`", unsafe_allow_html=True)
+                with c_phone:
+                    st.markdown(f"📱 **Phone:**<br>`{display_profile.phone or 'Not specified'}`", unsafe_allow_html=True)
+                with c_loc:
+                    st.markdown(f"📍 **Location:**<br>`{display_profile.location or 'Not specified'}`", unsafe_allow_html=True)
+                with c_exp:
+                    st.markdown(f"⏳ **Experience:**<br>`{display_profile.total_years_experience} years`", unsafe_allow_html=True)
+                with c_edu:
+                    st.markdown(f"🎓 **Education:**<br>`{display_profile.highest_education}`", unsafe_allow_html=True)
 
-                with col_right:
-                    st.markdown("**Detected Core Skills**")
+                if display_profile.links and not st.session_state.pii_masking:
+                    links_md = " • ".join([f"[{url}]({url if url.startswith('http') else 'https://' + url})" for url in display_profile.links[:4]])
+                    st.markdown(f"🔗 **Web Links:** {links_md}")
+
+                st.divider()
+
+                # 2. SEPARATED CORE SKILLS
+                st.markdown(f"#### 🛠️ Detected Skills ({len(display_profile.top_skills)})")
+                if display_profile.top_skills:
                     skill_badges = "".join([f'<span class="skill-pill">{s}</span>' for s in display_profile.top_skills])
-                    st.markdown(skill_badges if skill_badges else "*No skills extracted*", unsafe_allow_html=True)
+                    st.markdown(skill_badges, unsafe_allow_html=True)
+                else:
+                    st.caption("No technical skills explicitly identified.")
 
+                st.divider()
+
+                # 3. SEPARATED STRUCTURED WORK EXPERIENCES
+                st.markdown(f"#### 💼 Work Experience ({len(display_profile.work_experiences)} Roles Extracted)")
+                if display_profile.work_experiences:
+                    for idx, exp in enumerate(display_profile.work_experiences, 1):
+                        dur_str = f" • ~{exp.duration_years} yrs" if exp.duration_years else ""
+                        comp_str = f" @ **{exp.company}**" if exp.company else ""
+                        loc_str = f" ({exp.location})" if exp.location else ""
+                        
+                        st.markdown(f"**{idx}. {exp.title}**{comp_str}{loc_str}")
+                        st.caption(f"🗓️ {exp.date_range}{dur_str}")
+                        if exp.highlights:
+                            for h in exp.highlights:
+                                st.markdown(f"- {h}")
+                        elif exp.description:
+                            st.markdown(exp.description)
+                        st.write("")
+                else:
+                    # Fallback to experience section text
+                    exp_sec = next((s for s in display_profile.sections if s.section_type == ResumeSectionType.EXPERIENCE), None)
+                    if exp_sec:
+                        st.markdown(exp_sec.content)
+                    else:
+                        st.caption("No work experience entries parsed.")
+
+                # 4. SUMMARY & RAW RESUME SECTIONS
+                with st.expander("📄 View Full Summary & Raw Resume Text", expanded=False):
                     if display_profile.summary:
-                        st.markdown(f"**Summary:**\n> {display_profile.summary}")
-
-                st.markdown("**Recognized Resume Sections:**")
-                sec_tabs = st.tabs([s.title for s in display_profile.sections] if display_profile.sections else ["Raw Content"])
-                for i, sec in enumerate(display_profile.sections):
-                    with sec_tabs[i]:
-                        st.code(sec.content, language="markdown")
+                        st.markdown(f"**Executive Summary:**\n> {display_profile.summary}\n")
+                    st.text(display_profile.raw_text)
 
 
 # ==============================================================================
@@ -597,6 +648,14 @@ with tabs[2]:
             cand = st.session_state.candidates[selected_cid]
             display_cand = PIIMasker.mask_profile(cand) if st.session_state.pii_masking else cand
 
+            # Separated Candidate Contact & Location Strip
+            c_info1, c_info2, c_info3 = st.columns(3)
+            c_info1.markdown(f"📧 **Email:** `{display_cand.email or 'Not specified'}`")
+            c_info2.markdown(f"📱 **Phone:** `{display_cand.phone or 'Not specified'}`")
+            c_info3.markdown(f"📍 **Location:** `{display_cand.location or 'Not specified'}`")
+
+            st.write("")
+
             col_left_card, col_right_radar = st.columns([1.1, 1])
 
             with col_left_card:
@@ -650,6 +709,20 @@ with tabs[2]:
                 st.caption("Tailored prompts targeting this candidate's specific profile and skill gaps:")
                 for idx, q in enumerate(ev.tailored_interview_questions, 1):
                     st.markdown(f"**{idx}.** {q}")
+
+            # Structured Work Experience section in Tab 3
+            if display_cand.work_experiences:
+                st.markdown(f"### 💼 Structured Career Experience ({len(display_cand.work_experiences)} Roles)")
+                for idx, exp in enumerate(display_cand.work_experiences, 1):
+                    dur_str = f" • ~{exp.duration_years} yrs" if exp.duration_years else ""
+                    comp_str = f" @ **{exp.company}**" if exp.company else ""
+                    loc_str = f" ({exp.location})" if exp.location else ""
+                    with st.expander(f"{idx}. {exp.title}{comp_str} ({exp.date_range}{dur_str})", expanded=(idx == 1)):
+                        if exp.highlights:
+                            for h in exp.highlights:
+                                st.markdown(f"- {h}")
+                        elif exp.description:
+                            st.markdown(exp.description)
 
             st.divider()
             st.markdown("### 📤 Executive Hiring Packets & Reports")

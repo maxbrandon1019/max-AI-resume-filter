@@ -8,7 +8,8 @@ from src.models.schemas import (
     CandidateProfile,
     ResumeSection,
     ResumeSectionType,
-    ChunkDocument
+    ChunkDocument,
+    WorkExperience
 )
 
 
@@ -126,6 +127,7 @@ class ResumeSectionizer:
         email = cls._extract_email(clean_text)
         phone = cls._extract_phone(clean_text)
         links = cls._extract_links(clean_text)
+        location = cls._extract_location(clean_text, lines)
         name = cls._extract_name(lines, email)
 
         # 2. Segment text into sections
@@ -133,6 +135,7 @@ class ResumeSectionizer:
 
         # 3. Extract high-level qualifications
         total_exp = cls._calculate_years_experience(clean_text, sections)
+        work_experiences = cls._extract_work_experiences(sections, clean_text)
         education = cls._detect_highest_education(clean_text)
         top_skills = cls._extract_top_skills(clean_text)
         summary = cls._extract_summary(sections)
@@ -143,11 +146,12 @@ class ResumeSectionizer:
             name=name,
             email=email,
             phone=phone,
-            location=cls._extract_location(clean_text),
+            location=location,
             links=links,
             total_years_experience=total_exp,
             highest_education=education,
             top_skills=top_skills,
+            work_experiences=work_experiences,
             summary=summary,
             raw_text=clean_text,
             sections=sections,
@@ -337,9 +341,150 @@ class ResumeSectionizer:
         return list(dict.fromkeys(matches))[:5]
 
     @classmethod
-    def _extract_location(cls, text: str) -> Optional[str]:
-        loc_match = re.search(r"\b([A-Z][a-zA-Z\s]+,\s*[A-Z]{2,}(?:\s*,\s*[A-Z][a-zA-Z]+)?)\b", text[:600])
-        return loc_match.group(1).strip() if loc_match else None
+    def _extract_location(cls, text: str, lines: Optional[List[str]] = None) -> Optional[str]:
+        """Extracts location (City, State/Country) from header lines or top text."""
+        # 1. First inspect top header lines split by common delimiters
+        if lines:
+            for line in lines[:5]:
+                segments = [s.strip() for s in re.split(r"[|•·\t]", line) if s.strip()]
+                for seg in segments:
+                    if cls.EMAIL_REGEX.search(seg) or cls.PHONE_REGEX.search(seg) or cls.URL_REGEX.search(seg):
+                        continue
+                    m = re.match(r"^([A-Z][a-zA-Z\s\.\-]{2,25},\s*[A-Z]{2,}(?:\s*,\s*[A-Za-z]+)?)$", seg)
+                    if m:
+                        return m.group(1).strip()
+
+        # 2. Search regex across first 800 chars
+        loc_match = re.search(r"\b([A-Z][a-zA-Z\s]{2,25},\s*[A-Z]{2,}(?:\s*,\s*[A-Z][a-zA-Z]+)?)\b", text[:800])
+        if loc_match:
+            candidate_loc = loc_match.group(1).strip()
+            if "@" not in candidate_loc and not any(kw in candidate_loc.lower() for kw in ["university", "college", "degree", "technologies"]):
+                return candidate_loc
+
+        return None
+
+    @classmethod
+    def _parse_role_company_location(cls, text: str) -> Tuple[str, Optional[str], Optional[str]]:
+        """Splits a title banner like 'Senior ML Engineer | AI Tech Labs, Seattle, WA' into role, company, location."""
+        clean = text.strip()
+        if not clean:
+            return "Professional Role", None, None
+
+        parts = [p.strip() for p in re.split(r"[|•·\t]|\s+at\s+|\s+@\s+", clean) if p.strip()]
+        if not parts:
+            return clean, None, None
+
+        role = parts[0]
+        company = None
+        location = None
+
+        if len(parts) >= 2:
+            second = parts[1]
+            loc_match = re.search(r"^(.*?),\s*([A-Za-z\s]+,\s*[A-Z]{2,}(?:\s*,\s*[A-Za-z]+)?)$", second)
+            if loc_match:
+                company = loc_match.group(1).strip()
+                location = loc_match.group(2).strip()
+            else:
+                company = second
+                if len(parts) >= 3:
+                    location = parts[2]
+
+        return role, company, location
+
+    @classmethod
+    def _extract_work_experiences(cls, sections: List[ResumeSection], raw_text: str) -> List[WorkExperience]:
+        """Parses individual job roles, companies, dates, and bullet achievements into separated entries."""
+        exp_text = ""
+        for sec in sections:
+            if sec.section_type == ResumeSectionType.EXPERIENCE:
+                exp_text += "\n" + sec.content
+        if not exp_text.strip():
+            lines_all = raw_text.splitlines()
+            in_exp = False
+            for line in lines_all:
+                lower = line.strip().lower()
+                if any(kw in lower for kw in ["experience", "work history", "employment history"]):
+                    in_exp = True
+                    continue
+                if in_exp and any(kw in lower for kw in ["education", "skills", "projects", "certifications"]):
+                    break
+                if in_exp:
+                    exp_text += "\n" + line
+
+        if not exp_text.strip():
+            return []
+
+        lines = [l.strip() for l in exp_text.splitlines() if l.strip()]
+        date_pattern = re.compile(
+            r"((?:(?:[a-zA-Z]{3,9}\s+)?(?:\d{1,2}[\/\.])?(?:19\d\d|20\d\d)))\s*(?:-|–|—|to)\s*((?:(?:[a-zA-Z]{3,9}\s+)?(?:\d{1,2}[\/\.])?(?:19\d\d|20\d\d)|present|current|now|ongoing))",
+            re.IGNORECASE
+        )
+
+        current_year = datetime.now().year
+        entries: List[WorkExperience] = []
+        i = 0
+        n = len(lines)
+
+        while i < n:
+            line = lines[i]
+            m = date_pattern.search(line)
+            if m:
+                date_range_str = f"{m.group(1)} – {m.group(2)}"
+                start_val = cls._parse_date_point(m.group(1), current_year)
+                end_val = cls._parse_date_point(m.group(2), current_year)
+                dur = round(end_val - start_val, 1) if (start_val and end_val and end_val >= start_val) else None
+
+                title_line = ""
+                before_date = line[:m.start()].strip(" |–—-,()")
+                after_date = line[m.end():].strip(" |–—-,()")
+
+                if len(before_date) >= 3:
+                    title_line = before_date
+                elif len(after_date) >= 3:
+                    title_line = after_date
+                elif i > 0 and not date_pattern.search(lines[i - 1]):
+                    prev_line = lines[i - 1]
+                    if not prev_line.startswith(("-", "•", "*", "▪", "–")):
+                        title_line = prev_line
+                        if i > 1 and not lines[i - 2].startswith(("-", "•", "*", "▪", "–")) and len(lines[i - 2]) <= 80:
+                            title_line = f"{lines[i - 2]} | {prev_line}"
+
+                role, company, location = cls._parse_role_company_location(title_line)
+
+                highlights: List[str] = []
+                desc_lines: List[str] = []
+                j = i + 1
+                while j < n and not date_pattern.search(lines[j]):
+                    curr_l = lines[j]
+                    if any(sec_pat.search(curr_l.strip(" :-#=")) for _, sec_pat in cls.SECTION_PATTERNS):
+                        break
+                    if j + 1 < n and date_pattern.search(lines[j + 1]) and not curr_l.startswith(("-", "•", "*", "▪", "–")):
+                        break
+
+                    clean_bullet = re.sub(r"^[\-•\*▪–—\s]+", "", curr_l).strip()
+                    if clean_bullet:
+                        if curr_l.startswith(("-", "•", "*", "▪", "–")) or len(clean_bullet) > 15:
+                            highlights.append(clean_bullet)
+                        desc_lines.append(clean_bullet)
+                    j += 1
+
+                entries.append(
+                    WorkExperience(
+                        title=role or "Professional Role",
+                        company=company,
+                        location=location,
+                        date_range=date_range_str,
+                        duration_years=dur,
+                        description="\n".join(desc_lines),
+                        highlights=highlights,
+                        raw_content="\n".join([title_line, date_range_str] + desc_lines)
+                    )
+                )
+                i = j
+                continue
+            i += 1
+
+        return entries
 
     @classmethod
     def _parse_date_point(cls, s: str, default_year: int) -> Optional[float]:

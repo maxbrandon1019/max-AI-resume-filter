@@ -443,6 +443,7 @@ class ReportGenerator:
             f"**Target Role:** {job_title}  ",
             f"**Assessment Date:** {current_date}  ",
             f"**Fit Status:** {evaluation.fit_tier} ({evaluation.overall_score}/100)  ",
+            f"**Contact Details:** Email: {candidate.email or 'N/A'} | Phone: {candidate.phone or 'N/A'} | Location: {candidate.location or 'N/A'}  ",
             f"**Detected Seniority:** {candidate.total_years_experience} Years | **Education:** {candidate.highest_education}",
             "",
             "---",
@@ -505,6 +506,9 @@ class ReportGenerator:
             "Rank",
             "Candidate ID",
             "Candidate Name",
+            "Email",
+            "Phone",
+            "Location",
             "Fit Tier",
             "Overall Score",
             "Technical Score",
@@ -514,6 +518,7 @@ class ReportGenerator:
             "Total Required Skills",
             "Years Experience",
             "Highest Education",
+            "Core Skills",
             "Top Strengths",
             "Key Gaps",
             "Filename"
@@ -527,6 +532,10 @@ class ReportGenerator:
             exp = cand.total_years_experience if cand else 0.0
             edu = cand.highest_education if cand else "N/A"
             filename = cand.filename if cand else "N/A"
+            email = (cand.email or "—") if cand and not getattr(cand, "is_anonymized", False) else "—"
+            phone = (cand.phone or "—") if cand and not getattr(cand, "is_anonymized", False) else "—"
+            loc = (cand.location or "—") if cand else "—"
+            skills_str = ", ".join(cand.top_skills) if cand and cand.top_skills else "—"
             strengths_str = "; ".join(ev.strengths)
             gaps_str = "; ".join(ev.gaps)
 
@@ -534,6 +543,9 @@ class ReportGenerator:
                 rank,
                 ev.candidate_id,
                 ev.candidate_name,
+                email,
+                phone,
+                loc,
                 ev.fit_tier,
                 ev.overall_score,
                 ev.technical_score,
@@ -543,6 +555,7 @@ class ReportGenerator:
                 ev.total_required_skills_count,
                 exp,
                 edu,
+                skills_str,
                 strengths_str,
                 gaps_str,
                 filename
