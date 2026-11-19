@@ -13,7 +13,7 @@ import pandas as pd
 from typing import Dict, List, Optional
 from datetime import datetime
 
-from src.models.schemas import CandidateProfile, JDRequirements, FitEvaluation
+from src.models.schemas import CandidateProfile, JDRequirements, FitEvaluation, ResumeSectionType, WorkExperience
 from src.ingestion.parser import ResumeParser
 from src.ingestion.sectionizer import ResumeSectionizer
 from src.ingestion.pii_masker import PIIMasker
