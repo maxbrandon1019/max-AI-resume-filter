@@ -1,4 +1,4 @@
-# RAG-Based Resume Filter & Reader
+# Max's AI-Powered RAG Resume Filter
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED.svg?logo=docker&logoColor=white)](Dockerfile)

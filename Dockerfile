@@ -1,5 +1,5 @@
 # ==============================================================================
-# Multi-stage / Production Dockerfile for RAG Resume Filter & Reader
+# Multi-stage / Production Dockerfile for Max's AI-Powered RAG Resume Filter
 # ==============================================================================
 FROM python:3.11-slim
 

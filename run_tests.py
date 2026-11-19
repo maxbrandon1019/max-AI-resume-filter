@@ -72,7 +72,7 @@ def run_all_tests():
     failed = 0
 
     print("=" * 70)
-    print("RUNNING RAG RESUME FILTER & READER VERIFICATION SUITE")
+    print("RUNNING MAX'S AI-POWERED RAG RESUME FILTER VERIFICATION SUITE")
     print("=" * 70)
 
     for name, test_func in test_cases:

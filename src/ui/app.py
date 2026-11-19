@@ -1,4 +1,4 @@
-"""Streamlit Dashboard for RAG-Based Resume Filter, Reader & Conversational Talent Intelligence."""
+"""Streamlit Dashboard for Max's AI-Powered RAG Resume Filter."""
 import os
 import sys
 from pathlib import Path
@@ -28,7 +28,7 @@ from src.ui.charts import generate_radar_chart_svg, generate_comparison_radar_ch
 
 # Page configuration
 st.set_page_config(
-    page_title="RAG Resume Filter & Reader",
+    page_title="Max's AI-Powered RAG Resume Filter",
     page_icon="📄",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -277,7 +277,7 @@ with st.sidebar:
 # ==============================================================================
 # MAIN PAGE HEADER & TABS
 # ==============================================================================
-st.markdown('<div class="main-title">📄 RAG Resume Filter & Reader</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">📄 Max\'s AI-Powered RAG Resume Filter</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle">Section-aware parsing, explainable candidate-JD fit scoring, and conversational talent intelligence</div>', unsafe_allow_html=True)
 
 tabs = st.tabs([
